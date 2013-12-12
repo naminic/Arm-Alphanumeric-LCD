@@ -98,6 +98,8 @@ void lcd_init()
     
   SSC_ConfigureTransmitter(AT91C_BASE_SSC,tcmr,tfmr);
   SSC_EnableTransmitter(AT91C_BASE_SSC);
+	
+	
         
 	// disable peripheral mode of this pins
 	clcd_Delay();
@@ -122,6 +124,72 @@ void lcd_init()
 	clcd_Delay();
 	//--------4 _BV--dual line---------------
 	lcd_command(0x28);
+	
+	//-----increment address, invisible cursor shift------
+	lcd_command(0x0c);
+
+	clcd_Delay();
+	
+	
+		// disable peripheral mode of this pins
+	clcd_Delay();
+	setD4567(0);
+	//---------one------
+	setD4567((1<<5)|(1<<4));
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//-----------two-----------
+	setD4567((1<<5)|(1<<4));
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//-------three-------------
+	setD4567(1<<5);
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//--------4 _BV--dual line---------------
+	lcd_command(0x28);
+	
+	//-----increment address, invisible cursor shift------
+	lcd_command(0x0c);
+
+	clcd_Delay();
+	
+	
+
+  PIO_Configure(Lcdpins,PIO_LISTSIZE(Lcdpins));
+	PIO_Configure(sscPins, PIO_LISTSIZE(sscPins));
+	
+	
+		// disable peripheral mode of this pins
+	clcd_Delay();
+	setD4567(0);
+	//---------one------
+	setD4567((1<<5)|(1<<4));
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//-----------two-----------
+	setD4567((1<<5)|(1<<4));
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//-------three-------------
+	setD4567(1<<5);
+        PIO_Set(&Lcdpins[1]);
+	clcd_minDelay();
+        PIO_Clear(&Lcdpins[1]);
+	clcd_Delay();
+	//--------4 _BV--dual line---------------
+	lcd_command(0x28);
+	
 	//-----increment address, invisible cursor shift------
 	lcd_command(0x0c);
 
